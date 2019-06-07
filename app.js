@@ -22,7 +22,6 @@ app.use(function(req, res, next) {
 app.use(bodyParser.json());
 
 
-
 const secret = 'ggwp'
 
 const connect = mysql.createConnection({
@@ -52,6 +51,9 @@ connect.connect(function(error) {
 
 connect.query("SET SESSION wait_timeout = 604800");
 
+app.get('/', (req, res) => {
+	res.sendFile(index);
+})
 app.post('/auth', function(req, res){
 	const data = req.body;
 	connect.query('SELECT * FROM account WHERE Login LIKE "'+ data.login +'"', function(error, result, field){
